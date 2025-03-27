@@ -1,0 +1,12 @@
+"version": "3"
+
+services:
+  gympass-clone-pg:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    env_file: ".env"
+    environment:
+      - POSTGRESQL_USERNAME=${DATABASE_USERNAME}
+      - POSTGRESQL_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRESQL_DATABASE=${DATABASE_NAME}
