@@ -17,15 +17,17 @@ export class AuthenticationUseCase {
     private usersRepository: UsersRepository
   ) {}
 
-  async execute (
-    { email, password } : AuthenticationUseCaseRequest
-  ) : Promise<AuthenticationUseCaseResponse> {
+  async execute ({
+    email,
+    password
+  } : AuthenticationUseCaseRequest) : Promise<AuthenticationUseCaseResponse> {
     const user = await this.usersRepository.findByEmail(email)
+
     if (!user) {
       throw new InvalidCredentialsError()
     }
 
-    const doesPasswordMatches = compare(password, user.password_hash)
+    const doesPasswordMatches = await compare(password, user.password_hash)
 
     if (!doesPasswordMatches) {
       throw new InvalidCredentialsError()
