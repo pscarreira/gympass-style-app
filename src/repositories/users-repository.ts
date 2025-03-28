@@ -1,9 +1,4 @@
-interface UserData {
-  id?: string
-  name: string
-  email: string
-  password_hash: string
-}
+import { UserData } from '@/domain/user'
 
 export interface UsersRepository {
   create(data: UserData): Promise<UserData>
