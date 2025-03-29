@@ -1,5 +1,6 @@
 import { UserData } from '@/domain/user'
 import { UsersRepository } from '../users-repository'
+import { randomUUID } from 'node:crypto'
 
 export class InMemoryUsersRepository implements UsersRepository {
   public items: UserData[] = []
@@ -15,7 +16,7 @@ export class InMemoryUsersRepository implements UsersRepository {
 
   async create (data: UserData): Promise<UserData> {
     const user = {
-      id: 'user-1',
+      id: randomUUID(),
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,
