@@ -1,5 +1,5 @@
+import { CheckInsRepository } from './../repositories/checkins-repository'
 import { CheckInData } from '../domain/checkin'
-import { CheckInsRepository } from '../repositories/checkins-repository'
 
 interface CheckInUseCaseRequest {
   userId: string,
@@ -12,14 +12,23 @@ interface CheckInUseCaseResponse {
 
 export class CheckinUseCase {
   constructor (
-    private CheckInRepository: CheckInsRepository
+    private checkInsRepository: CheckInsRepository
   ) {}
 
   async execute ({
     userId,
     gymId
   } : CheckInUseCaseRequest) : Promise<CheckInUseCaseResponse> {
-    const checkIn = await this.CheckInRepository.create({
+    const checkInOnSameDate = await this.checkInsRepository.findByUserIdOnDate(
+      userId,
+      new Date()
+    )
+
+    if (checkInOnSameDate) {
+      throw new Error()
+    }
+
+    const checkIn = await this.checkInsRepository.create({
       user_id: userId,
       gym_id: gymId
     })
