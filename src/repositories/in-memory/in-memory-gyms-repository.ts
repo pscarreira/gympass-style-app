@@ -11,7 +11,7 @@ export class InMemoryGymsRepository implements GymsRepository {
     return gym
   }
 
-  async create (data: GymCreateData): Promise<GymData | null> {
+  async create (data: GymCreateData): Promise<GymData> {
     const gym: GymData = {
       id: data.id || randomUUID(),
       title: 'Gym 01',

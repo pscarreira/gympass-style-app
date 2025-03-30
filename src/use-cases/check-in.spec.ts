@@ -4,6 +4,8 @@ import {
 } from '@/repositories/in-memory/in-memory-checkins-repository'
 import { CheckinUseCase } from './check-in'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
+import { MaxDistanceError } from './errors/max-distance-error'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
@@ -54,12 +56,12 @@ describe('Ckeck-in Use Case', () => {
 
     await expect(() =>
       sut.execute({
-        gymId: 'gym-02',
+        gymId: 'gym-01',
         userId: 'user-01',
         userLatitude: 0,
         userLongitude: 0
       })
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to check in twice but in the different days', async () => {
@@ -89,6 +91,6 @@ describe('Ckeck-in Use Case', () => {
         userId: 'user-01',
         userLatitude: -22.9113391,
         userLongitude: -43.1999616
-      })).rejects.toBeInstanceOf(Error)
+      })).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
