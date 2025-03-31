@@ -1,12 +1,36 @@
+import { Decimal } from '@prisma/client/runtime/library'
+
 export interface Coordinate {
-  latitude: number,
+  latitude: number | Decimal,
+  longitude: number | Decimal
+}
+
+interface NumberCoordinate {
+  latitude: number
   longitude: number
 }
 
+function convertCoordinateToNumberCoordinate (
+  coordinate: Coordinate
+) : NumberCoordinate {
+  const newCoordinate: NumberCoordinate = {
+    latitude: coordinate.latitude instanceof Decimal
+      ? coordinate.latitude.toNumber()
+      : coordinate.latitude,
+    longitude: coordinate.longitude instanceof Decimal
+      ? coordinate.longitude.toNumber()
+      : coordinate.longitude
+  }
+  return newCoordinate
+}
+
 export function getDistanceBetweenCoordinates (
-  from: Coordinate,
-  to: Coordinate
+  paramFrom: Coordinate,
+  paramTo: Coordinate
 ) {
+  const from = convertCoordinateToNumberCoordinate(paramFrom)
+  const to = convertCoordinateToNumberCoordinate(paramTo)
+
   if (from.latitude === to.latitude && from.longitude === to.longitude) {
     return 0
   }

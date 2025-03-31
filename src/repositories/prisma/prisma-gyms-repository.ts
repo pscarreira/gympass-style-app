@@ -9,7 +9,6 @@ export class PrismaGymsRepository implements GymsRepository {
         id
       }
     })
-
     return gym
   }
 
