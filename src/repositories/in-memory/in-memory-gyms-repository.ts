@@ -14,7 +14,7 @@ export class InMemoryGymsRepository implements GymsRepository {
   async create (data: GymCreateData): Promise<GymData> {
     const gym: GymData = {
       id: data.id || randomUUID(),
-      title: 'Gym 01',
+      title: data.title,
       description: data.description,
       phone: data.phone,
       latitude: data.latitude,
@@ -22,5 +22,13 @@ export class InMemoryGymsRepository implements GymsRepository {
     }
     this.items.push(gym)
     return gym
+  }
+
+  async searchMany (search: string, page: number): Promise<GymData[]> {
+    const gyms = this.items.filter((item) => item.title.includes(search))
+    if (page) {
+      return gyms.slice((page - 1) * 20, page * 20)
+    }
+    return gyms
   }
 }
