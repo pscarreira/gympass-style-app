@@ -2,9 +2,7 @@ import { expect, it, describe, beforeEach } from 'vitest'
 import {
   InMemoryGymsRepository
 } from '@/repositories/in-memory/in-memory-gyms-repository'
-import { } from './search-gyms'
 import { FetchNearbyGymsUseCase } from './fetch-nearby-gyms'
-import { title } from 'process'
 
 let gymsRepository: InMemoryGymsRepository
 let sut: FetchNearbyGymsUseCase
