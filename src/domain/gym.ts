@@ -1,10 +1,12 @@
+import { Decimal } from '@prisma/client/runtime/library'
+
 export type GymData = {
   id: string
   title: string
   description?: string | null
   phone?: string | null
-  latitude: number
-  longitude: number
+  latitude: number | Decimal
+  longitude: number | Decimal
 }
 
 export type GymCreateData = {
@@ -12,6 +14,6 @@ export type GymCreateData = {
   title: string
   description?: string | null
   phone?: string | null
-  latitude: number
-  longitude: number
+  latitude: number | Decimal
+  longitude: number | Decimal
 }
