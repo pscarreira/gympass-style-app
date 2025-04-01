@@ -40,7 +40,6 @@ export class InMemoryGymsRepository implements GymsRepository {
         { latitude: params.latitude, longitude: params.longitude },
         { latitude: item.latitude, longitude: item.longitude }
       )
-      console.log('Distance:', distance)
       return distance < MAX_DISTANCE_NEARBY_GYM
     })
   }
