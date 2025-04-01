@@ -20,7 +20,6 @@ export default <Environment> {
   name: 'prisma',
   transformMode: 'ssr',
   async setup () {
-    console.log('Environment Prisma UP')
     const schema = randomUUID()
     const databaseURL = generateDatabaseURL(schema)
 
@@ -34,7 +33,6 @@ export default <Environment> {
 
         )
         await prisma.$disconnect()
-        console.log('Environment Prisma DOWN')
       }
     }
   }
